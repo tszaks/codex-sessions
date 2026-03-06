@@ -45,6 +45,12 @@ To avoid common false matches, session resolution uses:
 
 ## Install
 
+### Homebrew
+
+```bash
+brew install tszaks/tap/codex-sessions
+```
+
 ### Build from source
 
 ```bash
