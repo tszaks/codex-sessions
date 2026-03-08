@@ -45,6 +45,20 @@ To avoid common false matches, session resolution uses:
 
 ## Install
 
+### npm
+
+```bash
+npm install -g @tszaks/codex-sessions
+```
+
+This installs the `codex-sessions` command and downloads the matching prebuilt binary for your platform from GitHub Releases.
+
+You can also run it without a global install:
+
+```bash
+npx @tszaks/codex-sessions --details
+```
+
 ### Homebrew
 
 ```bash
@@ -173,11 +187,19 @@ Each session object can include:
 
 ## Current scope
 
-- macOS-first
+- macOS, Linux, and Windows binary distribution via GitHub Releases + npm
 - expects local Codex state under `~/.codex`
 - uses `sqlite3` and `ps`
 - no background service
 - no session mutation except `resume`
+
+## Supported npm targets
+
+- macOS arm64
+- macOS amd64
+- Linux arm64
+- Linux amd64
+- Windows amd64
 
 ## Non-goals
 
@@ -201,7 +223,7 @@ If you are calling this tool from another script, agent, or LLM wrapper:
 Run tests:
 
 ```bash
-go test ./...
+npm test
 ```
 
 Run the tool locally:
@@ -209,6 +231,19 @@ Run the tool locally:
 ```bash
 go run . --details
 ```
+
+Install npm dependencies in the repo without downloading a release binary:
+
+```bash
+CODEX_SESSIONS_SKIP_INSTALL=1 npm install
+```
+
+## Release flow
+
+- Git tags like `v0.2.0` are the release boundary
+- GitHub Actions builds platform archives with GoReleaser
+- The npm package `@tszaks/codex-sessions` is published from the same tag after the release assets exist when `NPM_TOKEN` is configured
+- The package version in `package.json` must match the git tag without the leading `v`
 
 ## License
 
